@@ -7,10 +7,10 @@ namespace
 {
 
 /*[==========================================================================]*/
-static int writer(char *data, size_t size, size_t nmemb, std::string *buffer)
+static int writer(char* data, size_t size, size_t nmemb, std::string* buffer)
 {
     int result = 0;
-    if (buffer != NULL)
+    if (0 != buffer)
     {
         //добавляем к буферу строки из data, в количестве nmemb
         buffer->append(data, size * nmemb);
@@ -25,14 +25,6 @@ static int writer(char *data, size_t size, size_t nmemb, std::string *buffer)
 /*[==========================================================================]*/
 namespace TelegramBotApi
 {
-
-/*[==========================================================================]*/
-NetConnection::NetConnection()
-{}
-
-/*[==========================================================================]*/
-NetConnection::~NetConnection()
-{}
 
 /*[==========================================================================]*/
 int NetConnection::init(const std::string& token)

@@ -12,17 +12,13 @@ class NetConnection
 {
 
 /*[=================*/public:/*=================]*/
-    NetConnection();
-
-    ~NetConnection();
-
     int init(const std::string& token);
 
     std::string getUpdates(const std::string& updateId = "") const;
 
-    std::string sendMessage(const std::string& chat_id, const std::string& msg, const std::string& replyId="") const;
+    std::string sendMessage(const std::string& chat_id, const std::string& msg, const std::string& replyId = "") const;
 
-    std::string sendSticker(const std::string& chat_id, const std::string& sticker, const std::string& replyId="") const;
+    std::string sendSticker(const std::string& chat_id, const std::string& sticker, const std::string& replyId = "") const;
 
 /*[=================*/private:/*=================]*/
     std::string performRequest(const std::string& url) const;
