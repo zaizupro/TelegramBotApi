@@ -64,7 +64,7 @@ std::string NetConnection::sendMessage(const std::string& chatId,
         url += "?chat_id=" + chatId;
         if (0 != msg.size())
         {   url += "&text=" + msg;   }
-        if (0 != msg.size())
+        if (0 != replyId.size())
         {   url += "&reply_to_message_id=" + replyId;   }
     }
 
@@ -88,7 +88,7 @@ std::string NetConnection::sendSticker(const std::string& chatId,
         url += "?chat_id=" + chatId;
         if (0 != sticker.size())
             url += "&sticker=" + sticker;
-        if (0 != sticker.size())
+        if (0 != replyId.size())
             url += "&reply_to_message_id=" + replyId;
     }
     return performRequest(url);
@@ -111,9 +111,11 @@ std::string NetConnection::performRequest(const std::string& url) const
 
         res = curl_easy_perform(_c);
         if (CURLE_OK == res)
-        {   std::cout << "[II] " << result.size() << "bytes get\n";   }
+        {   std::cout << "[II] " << result.size() << " bytes get\n";   }
         else
         {   std::cout << "[EE] " << errorBuffer << "\n";   }
+
+      std::cout << "[II] " << result.c_str() << " \n";
 
         curl_easy_cleanup(_c);
     }
