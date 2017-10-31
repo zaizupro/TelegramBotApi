@@ -24,6 +24,10 @@ class NetConnection
     std::string sendSticker(const std::string& chat_id,
                             const std::string& sticker,
                             const std::string& replyId = "") const;
+
+    std::string answerInlineQuery(const std::string& inlineQueryId,
+                                  const std::string& results) const;
+
 /*[=================*/private:/*=================]*/
     std::string performRequest(const std::string& url) const;
 

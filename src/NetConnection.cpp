@@ -3,6 +3,7 @@
 #include <curl/curl.h>
 #include <iostream>
 
+/*[==========================================================================]*/
 namespace
 {
 
@@ -19,7 +20,30 @@ static int writer(char* data, size_t size, size_t nmemb, std::string* buffer)
     return result;
 }
 
+
+/*[==========================================================================]*/
+std::string performSystem(const std::string command)
+{
+    std::string out;
+    FILE *in;
+    char buff[512];
+
+    if(!(in = popen(command.c_str(), "r")))
+    {      }
+    else
+    {
+        while(fgets(buff, sizeof(buff), in)!=NULL)
+        {   out += buff;   }
+        pclose(in);
+    }
+    return out;
 }
+
+
+}
+/*[==========================================================================]*/
+
+
 
 
 /*[==========================================================================]*/
@@ -94,6 +118,17 @@ std::string NetConnection::sendSticker(const std::string& chatId,
     return performRequest(url);
 }
 
+/*[==========================================================================]*/
+std::string NetConnection::answerInlineQuery(const std::string& inlineQueryId,
+                                             const std::string& results) const
+{
+    std::string method = "/answerInlineQuery";
+    std::string url = m_mainUrl + m_token + method;
+
+    url += "?inline_query_id=" + inlineQueryId;
+    url += "&results=" + results;
+    return performRequest(url);
+}
 
 /*[==========================================================================]*/
 std::string NetConnection::performRequest(const std::string& url) const
