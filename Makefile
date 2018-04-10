@@ -21,6 +21,10 @@ LDFLAGS= -lcurl
 SRCDIR=./src
 
 ##[==================================]##
+# install .h
+INCLUDES = \
+		$(SRCDIR)/NetConnection.h
+
 SOURCES=\
 		$(SRCDIR)/NetConnection.cpp
 
@@ -48,6 +52,8 @@ $(OBJECTS) : directories $(SOURCES)
 install:
 		mkdir -p $(PREFIX)/lib/
 		install $(LIB_DIR)/$(TARGET) $(PREFIX)/lib/
+		mkdir -p $(PREFIX)/include/$(PROJECT)
+		install -m 644 $(INCLUDES) $(PREFIX)/include/$(PROJECT)
 
 uninstall:
 		rm -rf $(PREFIX)/lib/$(TARGET)
