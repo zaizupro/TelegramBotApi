@@ -97,6 +97,18 @@ std::string NetConnection::sendMessage(const std::string& chatId,
     return performRequest(url);
 }
 
+/*[==========================================================================]*/
+std::string NetConnection::sendPhoto(const std::string& chatId,
+                                       const std::string& msg,
+                                       const std::string& filePath,
+                                       const std::string& replyId) const
+{
+    if (0 != chatId.size())
+    {
+        return performSystem("./sendphoto.sh "+m_token+" "+chatId+" "+filePath);
+    }
+    return "";
+}
 
 /*[==========================================================================]*/
 std::string NetConnection::sendSticker(const std::string& chatId,
@@ -131,7 +143,7 @@ std::string NetConnection::answerInlineQuery(const std::string& inlineQueryId,
 }
 
 /*[==========================================================================]*/
-std::string NetConnection::performRequest(const std::string& url) const
+std::string NetConnection::performRequest(const std::string& url, const std::string& post) const
 {
     std::string result;
     CURL* _c = curl_easy_init();
@@ -140,6 +152,12 @@ std::string NetConnection::performRequest(const std::string& url) const
     {
         CURLcode res;
         curl_easy_setopt(_c, CURLOPT_URL, url.c_str());
+        if (0 != post.size())
+        {
+          // curl_formadd
+            // curl_easy_setopt(_c, CURLOPT_POST, 1);
+            // curl_easy_setopt(_c, CURLOPT_POSTFIELDS, post.c_str());
+        }
         curl_easy_setopt(_c, CURLOPT_WRITEFUNCTION, writer);
         curl_easy_setopt(_c, CURLOPT_WRITEDATA, &result);
         curl_easy_setopt(_c, CURLOPT_ERRORBUFFER, errorBuffer);

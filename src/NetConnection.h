@@ -20,6 +20,10 @@ class NetConnection
                             const std::string& msg,
                             const std::string& replyId = "") const;
 
+    std::string sendPhoto(const std::string& chat_id,
+                            const std::string& msg,
+                            const std::string& filePath,
+                            const std::string& replyId = "") const;
 
     std::string sendSticker(const std::string& chat_id,
                             const std::string& sticker,
@@ -29,7 +33,7 @@ class NetConnection
                                   const std::string& results) const;
 
 /*[=================*/private:/*=================]*/
-    std::string performRequest(const std::string& url) const;
+    std::string performRequest(const std::string& url, const std::string& post="") const;
 
 /*[=================*/private:/*=================]*/
     std::string m_mainUrl   = "https://api.telegram.org/bot";
